@@ -22,6 +22,10 @@ public class Child {
         _ref = p;
     }
 
+    public Child(double left, double right, Op operator) {
+        _ref = new Branch(left,right,operator);
+    }
+
     public Branch getBranch() {
         if (_ref == null) {
             throw new NullBranchException("child is not a branch");
