@@ -33,6 +33,9 @@ public class TreeTraverse {
     }
 
     // need a toParent()
+    // this will always be a branch, never a double...
+    // in fact, these all will be branches, never doubles, because descending to
+    // a double is illegal.
     public Child toParent() {
         if (current.getParent() == null) { throw new IllegalArgumentException("current branch is the master child"); }
         current = current.getParent();
