@@ -13,9 +13,9 @@ public class Branch {
     // there's something weird with _thischild that's 
     // throwing off parent child functionality.
     // consider encapsulating branch and double under child.
-    private Child _thischild = new Child();
-    private Child _leftchild = new Child();
-    private Child _rightchild = new Child();
+    private Head _thischild = new Head();
+    private Head _leftchild = new Head();
+    private Head _rightchild = new Head();
     private Op _operator = Op.NULL;
     // private boolean _isMaster = false;
 
@@ -51,15 +51,15 @@ public class Branch {
         _operator = operator;
     }
 
-    public Child getLeftChild() {
+    public Head getLeftHead() {
         return _leftchild;
     }
 
-    public Child getRightChild() {
+    public Head getRightHead() {
         return _rightchild;
     }
 
-    public Child getThisChild() {
+    public Head getThisHead() {
         return _thischild;
     }
 
@@ -81,6 +81,18 @@ public class Branch {
 
     public void setRight(Branch p) {
         _rightchild.set(p);
+    }
+
+    public void setLeftHead(Head c) {
+        _leftchild = c;
+    }
+
+    public void setRightHead(Head c) {
+        _rightchild = c;
+    }
+
+    public void setThisHead(Head c) {
+        _thischild = c;
     }
 
     public void setOperator(Op op) {

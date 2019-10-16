@@ -6,34 +6,34 @@ public class TreeTraverse {
     // make sure to take note of the fact that child "wrapper"
     // classes may be able to have a parent functionality...
 
-    private Child current;
+    private Head current;
 
-    public TreeTraverse(Child b) {
+    public TreeTraverse(Head b) {
         current = b;
     }
 
-    public Child toLeft() {
-        try { current = current.getBranch().getLeftChild(); }
+    public Head toLeft() {
+        try { current = current.getBranch().getLeftHead(); }
         catch (NullBranchException e) {
             throw new NullBranchException("cannot descend to the left branch because it is not a branch");
         }
         return current;
     }
 
-    public Child toRight() {
-        try { current = current.getBranch().getRightChild(); }
+    public Head toRight() {
+        try { current = current.getBranch().getRightHead(); }
         catch (NullBranchException e) {
             throw new NullBranchException("cannot descend to the right branch because it is not a branch");
         }
         return current;
     }
 
-    public Child getCurrent() {
+    public Head getCurrent() {
         return current;
     }
 
     // need a toParent()
-    public Child toParent() {
+    public Head toParent() {
         if (current.getParent() == null) { throw new IllegalArgumentException("current branch is the master child"); }
         current = current.getParent();
         return current;

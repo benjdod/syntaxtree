@@ -1,34 +1,51 @@
 package base.syntree;
 
-public class Child {
+public class Head {
 
     // represents a container class for an operand entity
     // Holds either a simple number or a branch.
+    // interact with the tree solely thru Headren?
 
     private double _num = 0;
     private boolean _isnum = false;
     private Branch _ref = null; 
-    private Child _parent = null;
+    private Head _parent = null;
 
-    public Child() {
+    public Head() {
     }
 
-    public Child(double n) {
+    public Head(double n) {
         _num = n;
         _isnum = true;
     }
 
-    public Child(Branch p) {
-        _ref = p;
+    // new wrapper type constructors
+    public Head(double left, double right, Op operator) {
+        _ref = new Branch(left,right,operator);
     }
 
-    public Child(double left, double right, Op operator) {
-        _ref = new Branch(left,right,operator);
+    public Head(Head left, double right, Op operator) {
+        _ref = new Branch(0,right,operator);
+        _ref.setLeftHead(left);
+        _ref.setThisHead(this);
+    }
+
+    public Head(double left, Head right, Op operator) {
+        _ref = new Branch(left,0,operator);
+        _ref.setRightHead(right);
+        _ref.setThisHead(this);
+    }
+
+    public Head(Head left, Head right, Op operator) {
+        _ref = new Branch(0,0,operator);
+        _ref.setLeftHead(left);
+        _ref.setRightHead(right);
+        _ref.setThisHead(this);
     }
 
     public Branch getBranch() {
         if (_ref == null) {
-            throw new NullBranchException("child is not a branch");
+            throw new NullBranchException("Head is not a branch");
         }
         return _ref;
     }
@@ -53,11 +70,11 @@ public class Child {
         _ref = p;
     }
 
-    public Child getParent() {
+    public Head getParent() {
         return _parent;
     }
 
-    public void setParent(Child p) {
+    public void setParent(Head p) {
         _parent = p;
     }
 
@@ -90,7 +107,15 @@ public class Child {
         if (_isnum) {
             return _num;
         } else {
-            throw new RuntimeException("child is not a simple number");
+            throw new RuntimeException("Head is not a simple number");
+        }
+    }
+
+    public double calculate() {
+        if (_ref != null) {
+            return _ref.calculate();
+        } else {
+            return _num;
         }
     }
 }
