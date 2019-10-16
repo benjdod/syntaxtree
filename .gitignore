@@ -1,2 +1,2 @@
-bin/
-test/Testfunc.java
+*.class
+/test/Testfunc.java
