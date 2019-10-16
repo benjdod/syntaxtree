@@ -3,7 +3,7 @@ package base.syntree;
 public class TreeTraverse {
 
     // traverses a syntax tree
-    // make sure to take note of the fact that child "wrapper"
+    // make sure to take note of the fact that head "wrapper"
     // classes may be able to have a parent functionality...
 
     private Head current;
@@ -34,7 +34,7 @@ public class TreeTraverse {
 
     // need a toParent()
     public Head toParent() {
-        if (current.getParent() == null) { throw new IllegalArgumentException("current branch is the master child"); }
+        if (current.getParent() == null) { throw new IllegalArgumentException("current branch is the master head"); }
         current = current.getParent();
         return current;
     }
