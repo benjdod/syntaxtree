@@ -4,7 +4,6 @@ public class Head {
 
     // represents a container class for an operand entity
     // Holds either a simple number or a branch.
-    // interact with the tree solely thru Headren?
 
     private double _num = 0;
     private boolean _isnum = false;

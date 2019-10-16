@@ -15,15 +15,18 @@ public class TreeTraverse {
     public Head toLeft() {
         try { current = current.getBranch().getLeftHead(); }
         catch (NullBranchException e) {
-            throw new NullBranchException("cannot descend to the left branch because it is not a branch");
+            throw new NullBranchException("have reached the end of the current branch path");
         }
         return current;
     }
 
     public Head toRight() {
+        if (current.getBranch().getRightHead() == null) {
+            throw new TreeBoundaryException("have reached the end of the current branch path");
+        }
         try { current = current.getBranch().getRightHead(); }
         catch (NullBranchException e) {
-            throw new NullBranchException("cannot descend to the right branch because it is not a branch");
+            throw new TreeBoundaryException("have reached the end of the current branch path");
         }
         return current;
     }
