@@ -1,6 +1,4 @@
 This provides a framework for creating basic syntax trees. 
-A branch, in its most basic form, is a collection of two operands combined with an operator. 
-The Head() object provides a way wit
 
 ### `Head()`
 
@@ -32,3 +30,7 @@ The TreeTraverse class provides a way to move through the syntax tree and obtain
 `h.toLeft()` returns the number 3</br>
 `g.toLeft()` returns `Head(5,2,Op.PLUS)`</br>
 `g.toRight()`, run again, returns the number 2
+
+### `Tokenizer`
+
+This project also contains a static method for turning an input string into tokens for future parsing.
