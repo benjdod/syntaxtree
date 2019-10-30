@@ -1,20 +1,16 @@
 package test;
 
-import java.util.ArrayList;
 import base.syntree.*;
-import base.token.Tokenizer;
 
 public class Testfunc {
     public static void main(String[] args) {
-        // if you debug, you'll see these are different objects
-        // this is likely due to constructor issues
-        Branch b = new Branch(2,3,Op.PLUS);
-        Branch c = new Branch(5,4,Op.MINUS);
-        b.setRight(c);
-        TreeTraverse t = new TreeTraverse(b.getThisChild());
+        Head c = new Head(2,new Head(new Head(3,2,Op.DIV),2,Op.MINUS),Op.PLUS);
+        TreeTraverse t = new TreeTraverse(c);
         t.toRight();
-        t.getCurrent();
-        t.toParent();
+        t.toLeft();
+        t.toLeft();
+        System.out.println(t.getCurrent());
+        System.out.println(c.calculate());
     }
 
 }

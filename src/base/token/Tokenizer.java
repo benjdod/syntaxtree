@@ -147,14 +147,6 @@ public class Tokenizer {
         }
     }
 
-    private static boolean isOpOrParen(char c) {
-        if (isOp(c) || c == '(' || c == ')') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private static boolean isSubset(String str, char[] charlist) {
         boolean total = true;
         boolean isin;

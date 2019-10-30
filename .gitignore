@@ -1,2 +1,5 @@
-*.class
-/test/Testfunc.java
+/bin/
+/.vscode/
+/.settings/
+.classpath
+.project

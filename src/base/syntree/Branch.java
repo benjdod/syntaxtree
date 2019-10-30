@@ -6,61 +6,57 @@ public class Branch {
 
     /*
     represents the most basic tree structure 
-    of two child operands joined by an operator 
+    of two head operands joined by an operator 
     */
 
-
-    // there's something weird with _thischild that's 
-    // throwing off parent child functionality.
-    // consider encapsulating branch and double under child.
-    private Child _thischild = new Child();
-    private Child _leftchild = new Child();
-    private Child _rightchild = new Child();
+    private Head _thishead = new Head();
+    private Head _lefthead = new Head();
+    private Head _righthead = new Head();
     private Op _operator = Op.NULL;
     // private boolean _isMaster = false;
 
-    public Branch(double lchild, double rchild, Op operator) {
-        _thischild.set(this);
-        _leftchild.set(lchild);
-        _rightchild.set(rchild);
+    public Branch(double lhead, double rhead, Op operator) {
+        _thishead.set(this);
+        _lefthead.set(lhead);
+        _righthead.set(rhead);
         _operator = operator;
     }
 
-    public Branch(Branch lchild, double rchild, Op operator) {
-        _thischild.set(this);
-        _leftchild.set(lchild);
-        _leftchild.setParent(_thischild);
-        _rightchild.set(rchild);
+    public Branch(Branch lhead, double rhead, Op operator) {
+        _thishead.set(this);
+        _lefthead.set(lhead);
+        _lefthead.setParent(_thishead);
+        _righthead.set(rhead);
         _operator = operator;
     }
 
-    public Branch(double lchild, Branch rchild, Op operator) {
-        _thischild.set(this);
-        _leftchild.set(lchild);
-        _rightchild.set(rchild);
-        _rightchild.setParent(_thischild);
+    public Branch(double lhead, Branch rhead, Op operator) {
+        _thishead.set(this);
+        _lefthead.set(lhead);
+        _righthead.set(rhead);
+        _righthead.setParent(_thishead);
         _operator = operator;
     }
 
-    public Branch(Branch lchild, Branch rchild, Op operator) {
-        _thischild.set(this);
-        _leftchild.set(lchild);
-        _leftchild.setParent(_thischild);
-        _rightchild.set(rchild);
-        _rightchild.setParent(_thischild);
+    public Branch(Branch lhead, Branch rhead, Op operator) {
+        _thishead.set(this);
+        _lefthead.set(lhead);
+        _lefthead.setParent(_thishead);
+        _righthead.set(rhead);
+        _righthead.setParent(_thishead);
         _operator = operator;
     }
 
-    public Child getLeftChild() {
-        return _leftchild;
+    public Head getLeftHead() {
+        return _lefthead;
     }
 
-    public Child getRightChild() {
-        return _rightchild;
+    public Head getRightHead() {
+        return _righthead;
     }
 
-    public Child getThisChild() {
-        return _thischild;
+    public Head getThisHead() {
+        return _thishead;
     }
 
     public Op getOp() {
@@ -68,19 +64,39 @@ public class Branch {
     }
 
     public void setLeft(double n) {
-        _leftchild.set(n);
+        _lefthead.set(n);
     }
 
     public void setLeft(Branch p) {
-        _leftchild.set(p);
+        _lefthead.set(p);
     }
 
     public void setRight(double n) {
-        _rightchild.set(n);
+        _righthead.set(n);
     }
 
     public void setRight(Branch p) {
-        _rightchild.set(p);
+        _righthead.set(p);
+    }
+
+    public void setLeftHead(Head c) {
+        _lefthead = c;
+    }
+
+    public void setRightHead(Head c) {
+        _righthead = c;
+    }
+
+    public void setThisHead(Head c) {
+        _thishead = c;
+    }
+
+    public void setLeftHeadParent(Head c) {
+        _lefthead.setParent(c);
+    }
+
+    public void setRightHeadParent(Head c) {
+        _righthead.setParent(c);
     }
 
     public void setOperator(Op op) {
@@ -91,19 +107,19 @@ public class Branch {
         String ret = "";
         switch (_operator) {
             case PLUS:
-                ret =  _leftchild.toString() + " + " + _rightchild.toString();
+                ret =  _lefthead.toString() + " + " + _righthead.toString();
                 break;
             case MINUS:
-                ret = _leftchild.toString() + " - " + _rightchild.toString();
+                ret = _lefthead.toString() + " - " + _righthead.toString();
                 break;
             case MULT:
-                ret = _leftchild.toString() + " * " + _rightchild.toString();
+                ret = _lefthead.toString() + " * " + _righthead.toString();
                 break;
             case DIV:
-                ret = _leftchild.toString() + " / " + _rightchild.toString();
+                ret = _lefthead.toString() + " / " + _righthead.toString();
                 break;
             case EXP:
-                ret = _leftchild.toString() + " ^ " + _rightchild.toString();
+                ret = _lefthead.toString() + " ^ " + _righthead.toString();
                 break;
             default:
                 ret = "Branch.toString() returned a null value for some reason. This isn't right.";
@@ -112,19 +128,17 @@ public class Branch {
     }
 
     boolean bothInstantiated() {
-        if (_leftchild.isInstantiated() && _rightchild.isInstantiated()) {
+        if (_lefthead.isInstantiated() && _righthead.isInstantiated()) {
             return true;
         } else {
             return false;
         }
     }
-
     boolean isFull() {
         return (bothInstantiated() && _operator != Op.NULL);
     }
-
     boolean isFlat() {
-        return (_leftchild.isFlat() && _rightchild.isFlat());
+        return (_lefthead.isFlat() && _righthead.isFlat());
     }
 
     public double calculate() {
@@ -136,25 +150,25 @@ public class Branch {
             throw new RuntimeException("values for one or more items in the tree have not been provided");
         }
 
-        // four calculation methods based on which children are branches or numbers
-        if (_rightchild.isFlat() && _leftchild.isFlat()) {
-            calc_r = _rightchild.toNum();
-            calc_l = _leftchild.toNum();
+        // four calculation methods based on which headren are branches or numbers
+        if (_righthead.isFlat() && _lefthead.isFlat()) {
+            calc_r = _righthead.getNum();
+            calc_l = _lefthead.getNum();
         }
 
-        if (!_leftchild.isFlat() && _rightchild.isFlat()) {
-            calc_l = _leftchild.getBranch().calculate();
-            calc_r = _rightchild.toNum();
+        if (!_lefthead.isFlat() && _righthead.isFlat()) {
+            calc_l = _lefthead.getBranch().calculate();
+            calc_r = _righthead.getNum();
         }
 
-        if (!_rightchild.isFlat() && _leftchild.isFlat()) {
-            calc_r = _rightchild.getBranch().calculate();
-            calc_l = _leftchild.toNum();
+        if (!_righthead.isFlat() && _lefthead.isFlat()) {
+            calc_r = _righthead.getBranch().calculate();
+            calc_l = _lefthead.getNum();
         }
 
-        if (!_rightchild.isFlat() && !_leftchild.isFlat()) {
-            calc_r = _rightchild.getBranch().calculate();
-            calc_l = _leftchild.getBranch().calculate();
+        if (!_righthead.isFlat() && !_lefthead.isFlat()) {
+            calc_r = _righthead.getBranch().calculate();
+            calc_l = _lefthead.getBranch().calculate();
         }
 
         if (_operator == Op.PLUS) {

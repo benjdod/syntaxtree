@@ -3,41 +3,41 @@ package base.syntree;
 public class TreeTraverse {
 
     // traverses a syntax tree
-    // make sure to take note of the fact that child "wrapper"
+    // make sure to take note of the fact that head "wrapper"
     // classes may be able to have a parent functionality...
 
-    private Child current;
+    private Head current;
 
-    public TreeTraverse(Child b) {
+    public TreeTraverse(Head b) {
         current = b;
     }
 
-    public Child toLeft() {
-        try { current = current.getBranch().getLeftChild(); }
+    public Head toLeft() {
+        try { current = current.getBranch().getLeftHead(); }
         catch (NullBranchException e) {
-            throw new NullBranchException("cannot descend to the left branch because it is not a branch");
+            throw new TreeBoundaryException("have reached the end of the current branch path");
         }
         return current;
     }
 
-    public Child toRight() {
-        try { current = current.getBranch().getRightChild(); }
+    public Head toRight() {
+        if (current.getBranch().getRightHead() == null) {
+            throw new TreeBoundaryException("have reached the end of the current branch path");
+        }
+        try { current = current.getBranch().getRightHead(); }
         catch (NullBranchException e) {
-            throw new NullBranchException("cannot descend to the right branch because it is not a branch");
+            throw new TreeBoundaryException("have reached the end of the current branch path");
         }
         return current;
     }
 
-    public Child getCurrent() {
+    public Head getCurrent() {
         return current;
     }
 
     // need a toParent()
-    // this will always be a branch, never a double...
-    // in fact, these all will be branches, never doubles, because descending to
-    // a double is illegal.
-    public Child toParent() {
-        if (current.getParent() == null) { throw new IllegalArgumentException("current branch is the master child"); }
+    public Head toParent() {
+        if (current.getParent() == null) { throw new IllegalArgumentException("current branch is the master head"); }
         current = current.getParent();
         return current;
     }
