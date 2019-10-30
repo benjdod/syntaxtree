@@ -10,6 +10,7 @@ public class Testfunc {
         t.toLeft();
         t.toLeft();
         System.out.println(t.getCurrent());
+        System.out.println(c.calculate());
     }
 
 }
