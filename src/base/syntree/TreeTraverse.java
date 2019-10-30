@@ -15,7 +15,7 @@ public class TreeTraverse {
     public Head toLeft() {
         try { current = current.getBranch().getLeftHead(); }
         catch (NullBranchException e) {
-            throw new NullBranchException("have reached the end of the current branch path");
+            throw new TreeBoundaryException("have reached the end of the current branch path");
         }
         return current;
     }

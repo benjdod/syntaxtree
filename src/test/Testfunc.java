@@ -9,7 +9,7 @@ public class Testfunc {
         t.toRight();
         t.toLeft();
         t.toLeft();
-        System.out.println(t.getCurrent().calculate());
+        System.out.println(t.getCurrent());
     }
 
 }

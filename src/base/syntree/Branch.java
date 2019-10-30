@@ -9,10 +9,6 @@ public class Branch {
     of two head operands joined by an operator 
     */
 
-
-    // there's something weird with _thishead that's 
-    // throwing off parent head functionality.
-    // consider encapsulating branch and double under head.
     private Head _thishead = new Head();
     private Head _lefthead = new Head();
     private Head _righthead = new Head();
@@ -138,11 +134,9 @@ public class Branch {
             return false;
         }
     }
-
     boolean isFull() {
         return (bothInstantiated() && _operator != Op.NULL);
     }
-
     boolean isFlat() {
         return (_lefthead.isFlat() && _righthead.isFlat());
     }
@@ -158,18 +152,18 @@ public class Branch {
 
         // four calculation methods based on which headren are branches or numbers
         if (_righthead.isFlat() && _lefthead.isFlat()) {
-            calc_r = _righthead.toNum();
-            calc_l = _lefthead.toNum();
+            calc_r = _righthead.getNum();
+            calc_l = _lefthead.getNum();
         }
 
         if (!_lefthead.isFlat() && _righthead.isFlat()) {
             calc_l = _lefthead.getBranch().calculate();
-            calc_r = _righthead.toNum();
+            calc_r = _righthead.getNum();
         }
 
         if (!_righthead.isFlat() && _lefthead.isFlat()) {
             calc_r = _righthead.getBranch().calculate();
-            calc_l = _lefthead.toNum();
+            calc_l = _lefthead.getNum();
         }
 
         if (!_righthead.isFlat() && !_lefthead.isFlat()) {

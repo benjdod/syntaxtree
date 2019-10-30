@@ -46,11 +46,20 @@ public class Head {
         _ref.setThisHead(this);
     }
 
+    // do users ever need to use these?
     public Branch getBranch() {
         if (_ref == null) {
-            throw new NullBranchException("Head is not a branch");
+            throw new NullBranchException("The current head is not a branch");
         }
         return _ref;
+    }
+
+    public double getNum() {
+        if (_isnum) {
+            return _num;
+        } else {
+            throw new RuntimeException("The current head is not a simple number");
+        }
     }
 
     public String toString() {
@@ -81,14 +90,6 @@ public class Head {
         _parent = p;
     }
 
-    public boolean hasParent() {
-        if (_parent != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean isInstantiated() {
         if (_isnum || _ref != null) {
             return true;
@@ -102,15 +103,6 @@ public class Head {
             return true;
         } else {
             return false;
-        }
-    }
-
-    // unused method?
-    public double toNum() {
-        if (_isnum) {
-            return _num;
-        } else {
-            throw new RuntimeException("Head is not a simple number");
         }
     }
 
