@@ -2,7 +2,7 @@ package test;
 
 import base.syntree.*;
 
-public class Test {
+public class ExampleTest {
     public static void main(String[] args) {
         Head c = new Head(2,new Head(new Head(3,2,Op.DIV),2,Op.MINUS),Op.PLUS);
         System.out.println("-----Tree functionality-----");
