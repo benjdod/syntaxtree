@@ -91,6 +91,12 @@ public class Head {
         _ref = p;
     }
 
+    public boolean hasParent() {
+        if (_parent == null) {
+            return false;
+        } else {return true;}
+    }
+
     public Head getParent() {
         return _parent;
     }

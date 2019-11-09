@@ -3,8 +3,6 @@ package base.token;
 import java.util.ArrayList;
 
 public class Tokenizer {
-    // TODO: need to turn the output into useable objects for the parser. Maybe wrapper objects
-    // or type casting?
     public static ArrayList<String> tokens(String str) {
 
         if (str == null) { throw new IllegalArgumentException("input string cannot be null"); }
@@ -25,13 +23,17 @@ public class Tokenizer {
         // even number of parentheses
         int lparen = 0;
         int rparen = 0;
+        int parentrack = 0;
         for (int j = 0; j < t.length(); j++) {
             if (t.charAt(j) == '(') {
                 lparen++;
+                parentrack++;
             }
             if (t.charAt(j) == ')') {
                 rparen++;
+                parentrack--;
             }
+            if (parentrack < 0) {throw new IllegalArgumentException("order of parentheses is invalid");}
         }
         if (lparen != rparen) {throw new IllegalArgumentException("number of opening and closing parentheses must be equal"); }
         // out of place character checks
@@ -142,7 +144,7 @@ public class Tokenizer {
     }
 
     private static boolean isOp(char c) {
-        if (c == '+' || c == '-' || c == '*' || c == '/') {
+        if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
             return true;
         } else {
             return false;

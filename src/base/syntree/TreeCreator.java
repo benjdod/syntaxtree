@@ -21,4 +21,9 @@ public class TreeCreator extends TreeModifier {
         current.getBranch().setRightHead(new Head(tmp,new Head(),Op.NULL));
         current.getBranch().setRightHeadParent(current);
     }
+
+    // hard sets the current head
+    public void set(Head h) {
+        current = h;
+    }
 }

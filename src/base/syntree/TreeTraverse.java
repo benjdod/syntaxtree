@@ -36,10 +36,16 @@ public class TreeTraverse {
         return current;
     }
 
-    // need a toParent()
     public Head toParent() {
         if (current.getParent() == null) { throw new TreeBoundaryException("current branch is the master branch"); }
         current = current.getParent();
+        return current;
+    }
+
+    public Head toMaster() {
+        while (current.hasParent()) {
+            current = current.getParent();
+        }
         return current;
     }
 } 
