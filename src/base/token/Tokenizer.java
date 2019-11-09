@@ -3,6 +3,8 @@ package base.token;
 import java.util.ArrayList;
 
 public class Tokenizer {
+    // TODO: need to turn the output into useable objects for the parser. Maybe wrapper objects
+    // or type casting?
     public static ArrayList<String> tokens(String str) {
 
         if (str == null) { throw new IllegalArgumentException("input string cannot be null"); }

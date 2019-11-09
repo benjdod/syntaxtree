@@ -6,27 +6,28 @@ public class TreeTraverse {
     // make sure to take note of the fact that head "wrapper"
     // classes may be able to have a parent functionality...
 
-    private Head current;
+    // TODO: rework to deal with null parent cases presented by simple number heads
+    // make simple number heads inaccessible to users?
+
+    protected Head current;
 
     public TreeTraverse(Head b) {
         current = b;
     }
 
     public Head toLeft() {
-        try { current = current.getBranch().getLeftHead(); }
+        // try current.getBranch().getLeftHead().getBranch() to test if the child head is a branch
+        try { current.getBranch().getLeftHead().getBranch(); current = current.getBranch().getLeftHead(); }
         catch (NullBranchException e) {
-            throw new TreeBoundaryException("have reached the end of the current branch path");
+            throw new TreeBoundaryException(this + " has reached the end of the current branch path");
         }
         return current;
     }
 
     public Head toRight() {
-        if (current.getBranch().getRightHead() == null) {
-            throw new TreeBoundaryException("have reached the end of the current branch path");
-        }
-        try { current = current.getBranch().getRightHead(); }
+        try { current.getBranch().getRightHead().getBranch(); current = current.getBranch().getRightHead(); }
         catch (NullBranchException e) {
-            throw new TreeBoundaryException("have reached the end of the current branch path");
+            throw new TreeBoundaryException(this + " has reached the end of the current branch path");
         }
         return current;
     }
@@ -37,7 +38,7 @@ public class TreeTraverse {
 
     // need a toParent()
     public Head toParent() {
-        if (current.getParent() == null) { throw new IllegalArgumentException("current branch is the master head"); }
+        if (current.getParent() == null) { throw new TreeBoundaryException("current branch is the master branch"); }
         current = current.getParent();
         return current;
     }

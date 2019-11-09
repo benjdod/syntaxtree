@@ -47,6 +47,9 @@ public class Branch {
         _operator = operator;
     }
 
+    public Branch() {
+    }
+
     public Head getLeftHead() {
         return _lefthead;
     }
@@ -79,6 +82,7 @@ public class Branch {
         _righthead.set(p);
     }
 
+    // TODO: refactor these to just be setLeft(), setRight()
     public void setLeftHead(Head c) {
         _lefthead = c;
     }
@@ -121,6 +125,9 @@ public class Branch {
             case EXP:
                 ret = _lefthead.toString() + " ^ " + _righthead.toString();
                 break;
+            case NULL:
+                ret = _lefthead.toString() + " ~ " + _righthead.toString();
+                break;
             default:
                 ret = "Branch.toString() returned a null value for some reason. This isn't right.";
         }
@@ -147,7 +154,7 @@ public class Branch {
         double calc_r = 0;
 
         if (!isFull()) {
-            throw new RuntimeException("values for one or more items in the tree have not been provided");
+            throw new RuntimeException("one or more items in the branch are null");
         }
 
         // four calculation methods based on which headren are branches or numbers

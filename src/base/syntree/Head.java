@@ -11,11 +11,16 @@ public class Head {
     private Head _parent = null;
 
     public Head() {
+        // should this constructor add a new Branch() to _ref?
     }
 
     public Head(double n) {
         _num = n;
         _isnum = true;
+    }
+
+    public Head(Branch b) {
+        _ref = b;
     }
 
     // new wrapper type constructors
@@ -63,10 +68,14 @@ public class Head {
     }
 
     public String toString() {
-        if (_isnum) {
+        if (_isnum && _ref != null) {
+            return "error, head is both number and branch";
+        } else if (_isnum && _ref == null) {
             return Double.toString(_num);
-        } else {
+        } else if (!_isnum && _ref != null) {
             return "(" +  _ref.toString() + ")";
+        } else {
+            return "_";
         }
     }
 
