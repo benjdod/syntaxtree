@@ -3,6 +3,7 @@ package base.parse;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import base.parse.SessionHead.SessionState;
 import base.syntree.Branch;
 import base.syntree.Head;
 import base.syntree.Op;
@@ -10,31 +11,84 @@ import base.syntree.TreeCreator;
 import base.token.TokenIterator;
 
 public class Parser {
+
+    // this parser operates on the assumption that every expression in one level of parentheses 
+    // must follow the form EXP - OP - EXP - OP - EXP and so on. 
+
     public static Head parse(ArrayList<String> strs) {
         // GLOBAL VARIABLES:
-        Head current = new Head(new Branch());
+        SessionHead current = new SessionHead();
         TreeCreator t = new TreeCreator(current);
         TokenIterator i = new TokenIterator(strs);
-        // LOOP VARIABLES:
-        String s;
         // (3+4*2)
-        // one level session
-        t.getCurrent().getBranch().setLeft(Double.parseDouble(i.next()));
-        t.getCurrent().getBranch().setOperator(charToOp(i.next().charAt(0)));
-        t.getCurrent().getBranch().setRight(Double.parseDouble(i.next()));
-        while (i.hasTwoNext()) {
-            if (getOpRank(i.next().charAt(0)) < getOpRank(current.getBranch().getOp())) {
-                t.subLeft();
-                t.toRight();
-                t.setOperator(charToOp(i.current().charAt(0)));
-                t.setRight(Double.parseDouble(i.next()));
-                t.set(current);
-            } else {
-                t.superLeft();
-                t.setOperator(charToOp(i.current().charAt(0)));
-                t.setRight(Double.parseDouble(i.next()));
+        while (i.hasNext()) {
+            // advance to the next token
+            i.next();
+
+            // "(" opens a new session
+            if (i.current() == "(") {
+                SessionHead tmp = current;
+                current = new SessionHead(tmp);
+                // current.setState(SessionState.LEFT);
             }
+
+            // ")" closes the session
+            if (i.current() == ")") {
+                SessionHead tmp = current;
+                current = tmp.getParent();
+            }
+
+            if (current.getState() == SessionState.LEFT) {
+                t.getCurrent().getBranch().setLeft(Double.parseDouble(i.current()));
+                current.setState(SessionState.OP);
+                continue;
+            } else if (current.getState() == SessionState.OP) {
+                t.getCurrent().getBranch().setOperator(charToOp(i.current().charAt(0)));
+                current.setState(SessionState.RIGHT);
+                continue;
+            } else if (current.getState() == SessionState.RIGHT) {
+                t.getCurrent().getBranch().setRight(Double.parseDouble(i.current()));
+                current.setState(SessionState.EVALOP);
+                continue;
+            } else if (current.getState() == SessionState.EVALOP) {
+
+                if (getOpRank(i.current().charAt(0)) < getOpRank(current.getBranch().getOp())) {
+                    t.subLeft();
+                    t.toRight();
+                    t.setOperator(charToOp(i.current().charAt(0)));
+                } else {
+                    t.superLeft();
+                    t.setOperator(charToOp(i.current().charAt(0)));
+                }
+                current.setState(SessionState.EVALDIGIT);
+                continue;
+
+            } else if (current.getState() == SessionState.EVALDIGIT) {
+                t.getCurrent().getBranch().setRight(Double.parseDouble(i.current()));
+                current.setState(SessionState.EVALOP);
+                continue;
+            } else {
+                // the loop should never reach this point
+            }
+
         }
+
+        // t.getCurrent().getBranch().setLeft(Double.parseDouble(i.next()));
+        // t.getCurrent().getBranch().setOperator(charToOp(i.next().charAt(0)));
+        // t.getCurrent().getBranch().setRight(Double.parseDouble(i.next()));
+        // while (i.hasTwoNext()) {
+        //     if (getOpRank(i.next().charAt(0)) < getOpRank(current.getBranch().getOp())) {
+        //         t.subLeft();
+        //         t.toRight();
+        //         t.setOperator(charToOp(i.current().charAt(0)));
+        //         t.setRight(Double.parseDouble(i.next()));
+        //         t.set((Head)current);
+        //     } else {
+        //         t.superLeft();
+        //         t.setOperator(charToOp(i.current().charAt(0)));
+        //         t.setRight(Double.parseDouble(i.next()));
+        //     }
+        // }
         
         // ascent to top
         while (t.getCurrent().hasParent()) {

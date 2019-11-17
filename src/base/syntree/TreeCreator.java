@@ -9,15 +9,21 @@ public class TreeCreator extends TreeModifier {
         super(new Head());
     }
     
+    // parent functionality is broken
     public void superLeft() {
-        Head tmp = current;
-        current = new Head(tmp,new Head(),Op.NULL);
+        // Head tmp = current;
+        // Head tmpparent = current.getParent();
+        // current = new Head(tmp,new Head(),Op.NULL);
+        // current.setParent(tmpparent);
+        Head tmpparent = current.getParent();
+        Head newh = new Head(current,new Head(),Op.NULL);
+        newh.setParent(tmpparent);
+        tmpparent.getBranch().setRightHead(newh);
+        toParent();
     }
 
     public void subLeft() {
         Head tmp = current.getBranch().getRightHead();
-        // FIXME: not here, but maybe consider moving parent functionality to the 
-        // Branch class since you can't descend into single digits anymore...
         current.getBranch().setRightHead(new Head(tmp,new Head(),Op.NULL));
         current.getBranch().setRightHeadParent(current);
     }

@@ -167,4 +167,12 @@ public class Tokenizer {
         }
         return total;
     }
+
+    private void validate(ArrayList<String> strs) {
+        TokenIterator t = new TokenIterator(strs);
+        while (t.hasNext()) {
+            t.next();
+            
+        }
+    }
 }

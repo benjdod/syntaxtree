@@ -27,6 +27,7 @@ public class StringIterator {
         return _s.charAt(idx);
     }
 
+    // handle these exceptions better, go to NoSuchElementException
     public char peekNext() throws IndexOutOfBoundsException {
         return _s.charAt(idx+1);
     }

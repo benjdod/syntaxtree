@@ -1,7 +1,6 @@
 package test;
 
 import base.syntree.TreeCreator;
-import base.syntree.Head;
 import base.syntree.Op;
 
 public class TreeCreatorTest {
@@ -12,7 +11,10 @@ public class TreeCreatorTest {
         t.setOperator(Op.EXP);
         t.subLeft();
         t.toRight();
-        //t.toParent();
+        t.setOperator(Op.DIV);
+        t.setRight(7.2);
+        t.superLeft();
+        t.toParent();
         System.out.println(t.getCurrent());
     }
 }
