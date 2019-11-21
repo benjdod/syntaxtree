@@ -1,6 +1,6 @@
 This provides a framework for creating basic syntax trees. 
 
-*__A note:__ I wrote this before I was aware of the concept of context-free-grammar, lexical analysis, or backus-naur form. As a result, these programs bear a resemblence to some of these concepts but don't implement them correctly since I wrote the program from scartch without prior knowledge. *
+*__A note:__ I wrote this before I was aware of the concept of context-free-grammar, lexical analysis, or backus-naur form. As a result, these programs bear a resemblence to some of these concepts but don't implement them correctly since I wrote the program from scartch without prior knowledge.*
 
 ### `Head()`
 
