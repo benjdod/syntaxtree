@@ -1,5 +1,7 @@
 This provides a framework for creating basic syntax trees. 
 
+*A note:* I wrote this before I was aware of the concept of context-free-grammar, lexical analysis, or backus-naur form. As a result, these programs bear a resemblence to some of these concepts but don't implement them correctly since I wrote the program from scartch without prior knowledge. 
+
 ### `Head()`
 
 The `Head` object provides the basic methods to create and evaulate syntax trees.
