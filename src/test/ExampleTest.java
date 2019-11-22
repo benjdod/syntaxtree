@@ -1,6 +1,7 @@
 package test;
 
-import base.syntree.*;
+import base.tree.struct.*;
+import base.tree.TreeTraverse;
 
 public class ExampleTest {
     public static void main(String[] args) {
@@ -16,9 +17,6 @@ public class ExampleTest {
         System.out.println("toRight() -> " + t.getCurrent());
         t.toLeft();
         System.out.println("toLeft() -> " + t.getCurrent());
-        t.toLeft();
-        System.out.println("toLeft() -> " + t.getCurrent());
-
         
     }
 

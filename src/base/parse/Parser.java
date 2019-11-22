@@ -1,14 +1,12 @@
 package base.parse;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import base.parse.SessionHead.SessionState;
-import base.syntree.Branch;
-import base.syntree.Head;
-import base.syntree.Op;
-import base.syntree.TreeCreator;
-import base.token.TokenIterator;
+import base.tree.struct.Head;
+import base.tree.struct.Op;
+import base.tree.TreeCreator;
+import base.parse.helper.TokenIterator;;
 
 public class Parser {
 
@@ -104,31 +102,6 @@ public class Parser {
         }
 
         return t.getCurrent();
-    }
-
-    private static boolean isDigit(String s) {
-        boolean out = true;
-        for (int i=0;i<s.length();i++) {
-            if (((int)s.charAt(i) >= 48 && (int)s.charAt(i) <= 57) || (int)s.charAt(i) == 46) {
-                continue;
-            } else {
-                out = false;
-                break;
-            }
-        }
-        return out;
-    }
-
-    private static boolean isOp(String s) {
-        if (s.length() > 1) {return false;}
-        char c = s.charAt(0);
-        if (c == '^' || c == '*' || c == '/' || c == '+' || c == '-') {return true;}
-        return false;
-    }
-
-    private static double toDigit(String s) {
-        if (!isDigit(s)) {throw new IllegalArgumentException("provided string " + s + " is not a digit");}
-        return Double.parseDouble(s);
     }
 
     private static int getOpRank(char c) {

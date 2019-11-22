@@ -1,7 +1,7 @@
 package base.parse;
 
-import base.syntree.Branch;
-import base.syntree.Head;
+import base.tree.struct.Branch;
+import base.tree.struct.Head;
 
 public class SessionHead extends Head {
 

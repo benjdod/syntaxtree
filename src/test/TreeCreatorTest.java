@@ -1,7 +1,7 @@
 package test;
 
-import base.syntree.TreeCreator;
-import base.syntree.Op;
+import base.tree.TreeCreator;
+import base.tree.struct.Op;
 
 public class TreeCreatorTest {
     public static void main(String[] args) {
