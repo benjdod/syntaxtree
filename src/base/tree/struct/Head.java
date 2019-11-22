@@ -34,22 +34,22 @@ public class Head {
 
     public Head(Head left, double right, Op operator) {
         _ref = new Branch(0,right,operator);
-        _ref.setLeftHead(left);
+        _ref.setLeft(left);
         _ref.setLeftHeadParent(this);
         _ref.setThisHead(this);
     }
 
     public Head(double left, Head right, Op operator) {
         _ref = new Branch(left,0,operator);
-        _ref.setRightHead(right);
+        _ref.setRight(right);
         _ref.setRightHeadParent(this);
         _ref.setThisHead(this);
     }
 
     public Head(Head left, Head right, Op operator) {
         _ref = new Branch(0,0,operator);
-        _ref.setLeftHead(left);
-        _ref.setRightHead(right);
+        _ref.setLeft(left);
+        _ref.setRight(right);
         _ref.setLeftHeadParent(this);
         _ref.setRightHeadParent(this);
         _ref.setThisHead(this);

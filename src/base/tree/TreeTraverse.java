@@ -5,12 +5,7 @@ import base.tree.exception.*;
 
 public class TreeTraverse {
 
-    // traverses a syntax tree
-    // make sure to take note of the fact that head "wrapper"
-    // classes may be able to have a parent functionality...
-
-    // TODO: rework to deal with null parent cases presented by simple number heads
-    // make simple number heads inaccessible to users?
+    // traverses a chain of Heads (grisly)
 
     protected Head current;
 

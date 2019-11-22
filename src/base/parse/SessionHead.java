@@ -28,8 +28,6 @@ public class SessionHead extends Head {
         _parent = parent;
     }
 
-    // TODO: add in toSessionParent() ? Match Head functionality
-
     public void setState(SessionState state) {
         _state = state;
     }

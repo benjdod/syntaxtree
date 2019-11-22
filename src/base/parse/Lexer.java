@@ -3,7 +3,6 @@ package base.parse;
 import java.util.ArrayList;
 
 import base.parse.helper.StringIterator;
-import base.parse.helper.TokenIterator;
 
 public class Lexer {
     public static ArrayList<String> tokens(String str) {

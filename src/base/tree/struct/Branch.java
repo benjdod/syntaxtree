@@ -82,12 +82,11 @@ public class Branch {
         _righthead.set(p);
     }
 
-    // TODO: refactor these to just be setLeft(), setRight()
-    public void setLeftHead(Head c) {
+    public void setLeft(Head c) {
         _lefthead = c;
     }
 
-    public void setRightHead(Head c) {
+    public void setRight(Head c) {
         _righthead = c;
     }
 
