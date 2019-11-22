@@ -168,6 +168,8 @@ public class Tokenizer {
         return total;
     }
 
+    // validates the output tokens. This is probably already written into
+    // the functionality of the Tokenizer
     private void validate(ArrayList<String> strs) {
         TokenIterator t = new TokenIterator(strs);
         while (t.hasNext()) {
