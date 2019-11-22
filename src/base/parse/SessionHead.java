@@ -20,9 +20,15 @@ public class SessionHead extends Head {
         this(null);
     }
 
-    public SessionHead getParent() {
+    public SessionHead getSessionParent() {
         return _parent;
     }
+
+    public void setSessionParent(SessionHead parent) {
+        _parent = parent;
+    }
+
+    // TODO: add in toSessionParent() ? Match Head functionality
 
     public void setState(SessionState state) {
         _state = state;

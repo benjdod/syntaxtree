@@ -26,16 +26,41 @@ public class Parser {
             i.next();
 
             // "(" opens a new session
-            if (i.current() == "(") {
-                SessionHead tmp = current;
-                current = new SessionHead(tmp);
-                // current.setState(SessionState.LEFT);
+            if (i.current().equals("(")) {
+                if (current.getState() == SessionState.LEFT) {
+                    current.setState(SessionState.OP);
+                    SessionHead tmp = current;
+                    current = new SessionHead(tmp);
+                    current.setParent(tmp); 
+                    t.setLeft(current);
+                    t.toLeft();
+                    continue;
+                } else if (current.getState() == SessionState.RIGHT) {
+                    current.setState(SessionState.EVALOP);
+                    SessionHead tmp = current;
+                    current = new SessionHead(tmp);
+                    current.setParent(tmp); 
+                    t.setRight(current);
+                    t.toRight();
+                    continue;
+                } else if (current.getState() == SessionState.EVALDIGIT) {
+                    current.setState(SessionState.EVALOP);
+                    SessionHead tmp = current;
+                    current = new SessionHead(tmp);
+                    current.setParent(tmp); 
+                    t.setRight(current);
+                    t.toRight();
+                    continue;
+                }
+                
             }
 
             // ")" closes the session
-            if (i.current() == ")") {
+            if (i.current().equals(")")) {
                 SessionHead tmp = current;
-                current = tmp.getParent();
+                current = tmp.getSessionParent();
+                t.set(current);
+                continue;
             }
 
             if (current.getState() == SessionState.LEFT) {
@@ -72,25 +97,8 @@ public class Parser {
             }
 
         }
-
-        // t.getCurrent().getBranch().setLeft(Double.parseDouble(i.next()));
-        // t.getCurrent().getBranch().setOperator(charToOp(i.next().charAt(0)));
-        // t.getCurrent().getBranch().setRight(Double.parseDouble(i.next()));
-        // while (i.hasTwoNext()) {
-        //     if (getOpRank(i.next().charAt(0)) < getOpRank(current.getBranch().getOp())) {
-        //         t.subLeft();
-        //         t.toRight();
-        //         t.setOperator(charToOp(i.current().charAt(0)));
-        //         t.setRight(Double.parseDouble(i.next()));
-        //         t.set((Head)current);
-        //     } else {
-        //         t.superLeft();
-        //         t.setOperator(charToOp(i.current().charAt(0)));
-        //         t.setRight(Double.parseDouble(i.next()));
-        //     }
-        // }
         
-        // ascent to top
+        // ascend to the top once we're done
         while (t.getCurrent().hasParent()) {
             t.toParent();
         }

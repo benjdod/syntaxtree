@@ -5,6 +5,8 @@ public class Head {
     // represents a container class for an operand entity
     // Holds either a simple number or a branch.
 
+    // TODO: Lol change the name of this to Node instead of head
+
     private double _num = 0;
     private boolean _isnum = false;
     private Branch _ref = null; 

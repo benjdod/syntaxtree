@@ -9,16 +9,13 @@ public class TreeCreator extends TreeModifier {
         super(new Head());
     }
     
-    // parent functionality is broken
+    // parent functionality is maybe broken
     public void superLeft() {
-        // Head tmp = current;
-        // Head tmpparent = current.getParent();
-        // current = new Head(tmp,new Head(),Op.NULL);
-        // current.setParent(tmpparent);
         Head tmpparent = current.getParent();
-        Head newh = new Head(current,new Head(),Op.NULL);
+        Head temp = current;
+        Head newh = new Head(temp,new Head(),Op.NULL);
         newh.setParent(tmpparent);
-        tmpparent.getBranch().setRightHead(newh);
+        try {tmpparent.getBranch().setRightHead(newh);} catch (NullPointerException e) {}
         toParent();
     }
 
