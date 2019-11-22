@@ -4,6 +4,8 @@ import base.tree.TreeCreator;
 import base.tree.struct.Op;
 
 public class TreeCreatorTest {
+
+    // demonstrates some of the functionality of the TreeCreator class
     public static void main(String[] args) {
         TreeCreator t = new TreeCreator();
         t.setLeft(3.2);
