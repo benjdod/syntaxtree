@@ -101,6 +101,12 @@ public class Parser {
             t.toParent();
         }
 
+        // if it's only one number, return a numerical head
+        if (t.getCurrent().getBranch().getLeftHead().isFlat() &&
+            t.getCurrent().getBranch().getOp() == Op.NULL) {
+                return new Head(t.getCurrent().getBranch().getLeftHead().getNum());
+        }
+
         return t.getCurrent();
     }
 

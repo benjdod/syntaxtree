@@ -20,7 +20,13 @@ public class Lexer {
 
         StringIterator i = new StringIterator(t);
 
-        // ----- DEFENSIVE INPUT CHECKS -----
+        // ----- INPUT VALIDATION -----
+        
+        // proper subset check (the equation only contains legal characters)
+        char[] legalchars = {
+            '0','1','2','3','4','5','6','7','8','9','+','-','*','/','^','(',')','.'
+        };
+        if (!isSubset(t, legalchars)) { throw new IllegalArgumentException("input string contains illegal chars. \nLegal chars are digits 0-9, '+', '-', '*', '/', '^', '.', '(', and ')'"); }
 
         // even number of parentheses
         int lparen = 0;
@@ -42,11 +48,7 @@ public class Lexer {
         if (i.first() == ')') {throw new IllegalArgumentException("equation begins with a closing parenthesis"); }
         if (isOp(i.first()) && i.first() != '-') {throw new IllegalArgumentException("equation begins with an operator"); }
         if (isOp(i.last())) {throw new IllegalArgumentException("equation ends with an operator"); }
-        // proper subset check (the equation only contains legal characters)
-        char[] legalchars = {
-            '0','1','2','3','4','5','6','7','8','9','+','-','*','/','^','(',')','.'
-        };
-        if (!isSubset(t, legalchars)) { throw new IllegalArgumentException("input string contains illegal chars.\nLegal chars are digits 0-9, '+', '-', '*', '/', '^', '.', '(', and ')'"); }
+        
         // conjunctive operator and parentheses checks
         // each number can only be followed by an operator or a parenthesis
         // operators must be bookended by numbers 
